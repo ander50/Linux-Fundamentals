@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# STUDENT NAME AND CODE: UDO, ANDERSON ISONG - S2
+
+# PROJECT: LINUX FUNDAMENTALS
+
+# Objective: Create automation to display the Linux operating system information.
+
+# Display Linux Version
+function display_version() {
+    echo "The Linux version you are using is:"
+    uname -a
+}
+
+# Function to show internal IP
+function internal_ip() {
+    echo "Internal IP address is: $(hostname -I)"
+}
+
+# Function to show external IP
+function external_ip() {
+    echo "External IP address is: $(curl -s ifconfig.co)"
+}
+
+# Function to show default gateway
+function default_gateway() {
+    echo "Default gateway is: $(ip route | grep default | awk '{print $3}')"
+}
+
+# Function to display top 5 directories by size
+function top_directories() {
+    echo "Top 5 directories by size:"
+    du -h / 2>/dev/null | sort -rh | head -n 5
+}
+
+# Function to display CPU usage every 10 seconds
+function cpu_usage() {
+    echo "CPU usage at 10-second intervals:"
+    top -d 10
+}
+
+# Main menu
+while true; do
+    echo "Choose an option:
+    1. Display Linux Version
+    2. Show Internal IP Address
+    3. Show External IP Address
+    4. Show Default Gateway
+    5. Display Top 5 Directories by Size
+    6. Display CPU Usage (refresh every 10 seconds)
+    7. Exit"
+    
+    read -p "Enter your choice (1-7): " choice
+    
+    case $choice in
+        1)
+            display_version
+            ;;
+        2)
+            internal_ip
+            ;;
+        3)
+            external_ip
+            ;;
+        4)
+            default_gateway
+            ;;
+        5)
+            top_directories
+            ;;
+        6)
+            cpu_usage
+            ;;
+        7)
+            echo "Exiting the script."
+            exit 0
+            ;;
+        *)
+            echo "Invalid option. Please choose a valid option (1-7)."
+            ;;
+    esac
+done
+
+
+# The above script includes defined functions for each of the options, provides a user friendly menu for them to choose from and allows the user to exit the script gracefully.
